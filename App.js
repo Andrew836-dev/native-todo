@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import TodoItem from './components/TodoItem';
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 
 export default function App () {
   const [todos, setTodos] = useState([{ task: "Add a Todo", date: Date.now(), done: true }]);
@@ -13,6 +14,9 @@ export default function App () {
         break;
       case "remove":
         setTodos(currentTodos => currentTodos.filter((_todo, index) => index !== action.index));
+        break;
+      case "toggle_complete":
+        setTodos(currentTodos => currentTodos.map((todo, index) => index === action.index ? ({ ...todo, done: !todo.done }) : todo));
         break;
       case "complete":
         setTodos(currentTodos => currentTodos.map((todo, index) => index === action.index ? ({ ...todo, done: true }) : todo));
@@ -27,8 +31,10 @@ export default function App () {
       {!!todos.length && todos.map((todo, i) => (
         <TodoItem dispatch={dispatch} index={i} todo={todo} key={todo.date} />
       ))}
-      <Button
-        title="Add Todo"
+      <SimpleLineIcons
+        name="plus"
+        size={36}
+        color="#4F8EF7"
         onPress={() => setTodos(prevTodos => [...prevTodos, { task: "", date: Date.now(), done: false }])}
       />
       <StatusBar style="auto" />
