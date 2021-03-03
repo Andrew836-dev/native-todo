@@ -15,17 +15,23 @@ function TodoItem ({ dispatch, index, todo }) {
 
   return isEditMode ?
     (
-      <View style={{ flexDirection: "row" }}>
-        <TextInput value={textField} autoFocus={true} onChangeText={setTextField} onSubmitEditing={finishEdit} />
+      <View style={styles.editContainer}>
+        <TextInput style={styles.editField} value={textField} autoFocus={true} onChangeText={setTextField} onSubmitEditing={finishEdit} onBlur={finishEdit} />
         <Button title="Submit" onPress={finishEdit} />
       </View>
     ) : (
-      <View style={{ flexDirection: "row" }}>
-        <Text>{new Date(todo.date).toLocaleTimeString()}</Text>
-        <Text style={{ textDecorationLine: todo.done ? "line-through" : "none" }}>{todo.task}</Text>
-        <SimpleLineIcons name="check" color={todo.done ? "#f00" : "#0f0"} style={styles.iconButton} onPress={() => dispatch({ type: "toggle_complete", index })} />
-        <SimpleLineIcons name="pencil" style={styles.iconButton} onPress={() => setIsEditMode(prevState => !prevState)} />
-        <SimpleLineIcons name="trash" color="#f00" style={styles.iconButton} onPress={() => dispatch({ type: "remove", index })} />
+      <View style={styles.taskContainer}>
+        <View style={styles.timestamp}>
+          <Text>{new Date(todo.date).toLocaleTimeString()} |</Text>
+        </View>
+        <View style={styles.task}>
+          <Text style={{ textDecorationLine: todo.done ? "line-through" : "none" }}>{todo.task}</Text>
+        </View>
+        <View style={styles.timestamp}>
+          <SimpleLineIcons name="check" color={todo.done ? "#f00" : "#0f0"} style={styles.iconButton} onPress={() => dispatch({ type: "toggle_complete", index })} />
+          <SimpleLineIcons name="pencil" style={styles.iconButton} onPress={() => setIsEditMode(prevState => !prevState)} />
+          <SimpleLineIcons name="trash" color="#f00" style={styles.iconButton} onPress={() => dispatch({ type: "remove", index })} />
+        </View>
       </View>
     );
 }
@@ -40,7 +46,12 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderRadius: 15
-  }
-})
+  },
+  editContainer: { flexDirection: "row", flex: 1, flexGrow: 1, justifyContent: "center", padding: 5 },
+  taskContainer: { flexDirection: "row", flex: 1, margin: 6, justifyContent: "space-between" },
+  timestamp: { flexDirection: "row", flex: 7 },
+  task: { flexDirection: "row", flex: 12, alignContent: "flex-start" },
+  editField: { borderColor: "#ddd", borderWidth: 1, marginRight: 5 }
+});
 
 export default TodoItem;
