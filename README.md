@@ -7,10 +7,13 @@ A basic TODO app using react native
 2. [Usage](#Usage)
 3. [License](#License)
 4. [Questions](#Questions)
-## Screenshot
-<img src="./assets/screenshots/add.png" height="300"/>
-<img src="./assets/screenshots/viewtasks.png" height="300"/>
-<img src="./assets/screenshots/edit.png" height="300"/>
+## Screenshots
+<div>
+<img src="./assets/screenshots/add.png" height="300" alt="Add and complete tasks" title="Add and complete tasks" />
+<img src="./assets/screenshots/viewtasks.png" height="300" alt="View tasks in the list" title="View tasks in the list" />
+<img src="./assets/screenshots/edit.png" height="300" alt="Edit tasks" title="Edit tasks" />
+</div>
+
 ## Installation
 Use expo-cli to build and run on mobile devices.
 
